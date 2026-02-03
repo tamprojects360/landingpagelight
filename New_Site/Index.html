@@ -188,7 +188,7 @@
         <div class="container mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-16 mb-16 text-right">
                 <div data-aos="fade-up">
-                    <h2 class="text-4xl font-black mb-6">בואו נניע את <br><span class="text-blue-500">הידע שלכם.</span></h2>
+                    <h2 class="text-4xl font-black mb-6">בואו נניע את <span class="text-blue-500">הידע שלכם.</span></h2>
                     <p class="text-slate-400 mb-8 max-w-md">זמינים עבורכם לייעוץ ראשוני בניהול תוכן טכני והטמעת מערכות ידע.</p>
                     <div class="space-y-6">
                         <div class="flex items-center gap-4 justify-start group">
@@ -197,7 +197,7 @@
                         </div>
                         <div class="flex items-center gap-4 justify-start group">
                             <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-xl shrink-0">✉️</div>
-                            <span class="text-lg md:text-xl font-bold uppercase truncate group-hover:text-blue-400 transition">TAM@TAM-PROJECTS.COM</span>
+                            <a href="mailto:TAM@TAM-PROJECTS.COM" class="text-lg md:text-xl font-bold uppercase truncate group-hover:text-blue-400 transition underline decoration-blue-500/30 underline-offset-4">TAM@TAM-PROJECTS.COM</a>
                         </div>
                     </div>
                 </div>
@@ -212,10 +212,42 @@
                         <button class="bg-blue-600 w-full py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition">שלח פנייה</button>
                     </form>
                 </div>
+				<script>
+    // **讝讛 讛拽讜讚 砖诪驻注讬诇 讗转 讛住拽专讬驻讟 砖诇 讙讜讙诇**
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // 诪讜谞注 讗转 讛砖诇讬讞讛 讛专讙讬诇讛
+        const formData = new FormData(form);
+        const data = {};
+        for (let [key, value] of formData.entries()) {
+            data[key] = value;
+        }
+
+        // **讛讞诇祝 讗转 讛-URL 讛讝讛 讘讻转讜讘转 讛-Deployment 砖诇 讛-Apps Script 砖诇讱**
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbxbjWVml6vx-MI4GA903H_n9aeaZCFxcxMiiFb98RVkV5MK_qUkXKaSJA0h_O3s07398Q/exec'; 
+
+        fetch(scriptUrl, {
+            method: 'POST',
+            mode: 'no-cors', // 讞砖讜讘 诇-CORS
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(() => {
+            alert('讛讛讜讚注讛 谞砖诇讞讛 讘讛爪诇讞讛!');
+            form.reset();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('讗讬专注讛 砖讙讬讗讛 讘砖诇讬讞讛.');
+        });
+    });
+</script>
             </div>
             <div class="border-t border-white/10 pt-10 text-center text-slate-500 text-xs md:text-sm">
-                <img src="images/TAM logo.png" alt="TAM Logo" class="h-10 mx-auto mb-6 opacity-90 grayscale hover:opacity-100 transition duration-500" onerror="this.style.display='none'">
-                <p>© 2024 TAM PROJECTS LTD. פתרונות כתיבה טכנית. כל הזכויות שמורות.</p>
+                <img src="images/TAM logo.png" alt="TAM Logo" class="h-10 mx-auto mb-6 opacity-30 grayscale hover:opacity-100 transition duration-500" onerror="this.style.display='none'">
+                <p>© TAM PROJECTS LTD. <br> פתרונות כתיבה טכנית<br>כל הזכויות שמורות</p>
             </div>
         </div>
     </footer>
@@ -262,38 +294,44 @@
         function init() {
             // הזרקת שירותים
             const sGrid = document.getElementById('services-grid');
-            services.forEach((s, i) => {
-                sGrid.innerHTML += `
-                    <div class="service-card p-6 md:p-8 bg-white rounded-3xl border border-slate-100 shadow-sm text-center" data-aos="fade-up" data-aos-delay="${i*50}">
-                        <div class="text-4xl mb-4">${s.icon}</div>
-                        <h3 class="text-xl font-bold mb-3 text-blue-800">${s.title}</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed">${s.desc}</p>
-                    </div>
-                `;
-            });
+            if (sGrid) {
+                services.forEach((s, i) => {
+                    sGrid.innerHTML += `
+                        <div class="service-card p-6 md:p-8 bg-white rounded-3xl border border-slate-100 shadow-sm text-center" data-aos="fade-up" data-aos-delay="${i*50}">
+                            <div class="text-4xl mb-4">${s.icon}</div>
+                            <h3 class="text-xl font-bold mb-3 text-blue-800">${s.title}</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">${s.desc}</p>
+                        </div>
+                    `;
+                });
+            }
 
             // הזרקת תהליך
             const mGrid = document.getElementById('method-grid');
-            methodSteps.forEach((step, i) => {
-                mGrid.innerHTML += `
-                    <div class="step-card bg-slate-50 p-6 rounded-2xl border border-slate-100 text-right" data-aos="fade-up" data-aos-delay="${i*100}">
-                        <div class="step-number">0${i+1}</div>
-                        <h4 class="text-lg font-bold mb-2 text-blue-900 relative z-10">${step.title}</h4>
-                        <p class="text-slate-600 text-xs relative z-10">${step.desc}</p>
-                    </div>
-                `;
-            });
+            if (mGrid) {
+                methodSteps.forEach((step, i) => {
+                    mGrid.innerHTML += `
+                        <div class="step-card bg-slate-50 p-6 rounded-2xl border border-slate-100 text-right" data-aos="fade-up" data-aos-delay="${i*100}">
+                            <div class="step-number">0${i+1}</div>
+                            <h4 class="text-lg font-bold mb-2 text-blue-900 relative z-10">${step.title}</h4>
+                            <p class="text-slate-600 text-xs relative z-10">${step.desc}</p>
+                        </div>
+                    `;
+                });
+            }
 
             // הזרקת למה ויזואלי
             const vList = document.getElementById('why-visual-list');
-            whyVisual.forEach(item => {
-                vList.innerHTML += `
-                    <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
-                        <span class="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center text-[10px]">✓</span>
-                        <span class="text-slate-300 text-sm font-medium">${item}</span>
-                    </div>
-                `;
-            });
+            if (vList) {
+                whyVisual.forEach(item => {
+                    vList.innerHTML += `
+                        <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
+                            <span class="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center text-[10px]">✓</span>
+                            <span class="text-slate-300 text-sm font-medium">${item}</span>
+                        </div>
+                    `;
+                });
+            }
 
             AOS.init({ duration: 800, once: true });
         }
