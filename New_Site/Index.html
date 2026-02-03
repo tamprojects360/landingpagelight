@@ -11,270 +11,294 @@
         body { font-family: 'Heebo', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
         .hero-gradient { background: radial-gradient(circle at center, #1e3a8a 0%, #0f172a 100%); }
         
-        /* עיצוב לוגו */
-        .logo-img { height: 50px; width: auto; object-fit: contain; }
+        /* עיצוב לוגו רספונסיבי */
+        .logo-img { height: 40px; width: auto; object-fit: contain; }
+        @media (min-width: 768px) { .logo-img { height: 55px; } }
 
-        /* Hotspots Animation */
+        /* Hotspots */
         .hotspot {
-            position: absolute; width: 24px; height: 24px; background: #3b82f6; border-radius: 50%;
+            position: absolute; width: 20px; height: 20px; background: #3b82f6; border-radius: 50%;
             cursor: pointer; box-shadow: 0 0 0 rgba(59, 130, 246, 0.4); animation: pulse 2s infinite;
         }
-        .hotspot:hover .tooltip { opacity: 1; transform: translateY(-10px); }
         .tooltip {
-            position: absolute; bottom: 100%; right: 50%; transform: translateX(50%);
-            background: #1e293b; color: white; padding: 12px; border-radius: 8px;
-            width: 200px; font-size: 0.875rem; opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 30;
+            position: absolute; bottom: 120%; right: 50%; transform: translateX(50%);
+            background: #1e293b; color: white; padding: 10px; border-radius: 8px;
+            width: 160px; font-size: 0.75rem; opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 30;
         }
+        .hotspot:hover .tooltip { opacity: 1; transform: translateX(50%) translateY(-5px); }
 
         @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+            0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(59, 130, 246, 0); }
+            100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
         }
 
-        .floating { animation: floating 3s ease-in-out infinite; }
-        @keyframes floating { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+        .floating { animation: floating 4s ease-in-out infinite; }
+        @keyframes floating { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
 
-        .nav-link:after { content: ''; display: block; width: 0; height: 2px; background: #3b82f6; transition: width .3s; }
-        .nav-link:hover:after { width: 100%; }
-        
+        /* תפריט מובייל */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(-100%);
+        }
+        #mobile-menu.active { transform: translateY(0); }
+
         .step-card { position: relative; }
-        .step-number { position: absolute; top: -20px; right: -10px; font-size: 5rem; font-weight: 900; color: #3b82f6; opacity: 0.1; line-height: 1; }
+        .step-number { position: absolute; top: -15px; right: -5px; font-size: 4rem; font-weight: 900; color: #3b82f6; opacity: 0.1; line-height: 1; }
         
-        .service-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .service-card:hover { transform: translateY(-10px); }
+        .service-card { transition: all 0.3s ease; }
+        .service-card:hover { transform: translateY(-8px); }
         .highlight-blue { color: #1e3a8a; font-weight: 700; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 overflow-x-hidden">
 
     <!-- Header -->
     <header class="fixed w-full bg-white/90 backdrop-blur-xl shadow-sm z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav class="container mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center">
             <div class="flex items-center">
-                <img src="images/TAM logo.png" alt="TAM PROJECTS" class="logo-img" onerror="this.outerHTML='<span class=\'text-2xl font-black text-blue-900\'>TAM PROJECTS</span>'">
+                <img src="images/TAM logo.png" alt="TAM PROJECTS" class="logo-img" onerror="this.outerHTML='<span class=\'text-xl md:text-2xl font-black text-blue-900\'>TAM PROJECTS</span>'">
             </div>
+            
+            <!-- Desktop Nav -->
             <div class="hidden lg:flex space-x-reverse space-x-8 font-bold text-slate-700">
-                <a href="#home" class="nav-link">בית</a>
-                <a href="#about" class="nav-link">אודות</a>
-                <a href="#services" class="nav-link">תחומי פעילות</a>
-                <a href="#method" class="nav-link">השיטה</a>
-                <a href="#contact" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition">צור קשר</a>
+                <a href="#home" class="hover:text-blue-600 transition">בית</a>
+                <a href="#about" class="hover:text-blue-600 transition">אודות</a>
+                <a href="#services" class="hover:text-blue-600 transition">תחומי פעילות</a>
+                <a href="#method" class="hover:text-blue-600 transition">השיטה</a>
+                <a href="#contact" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">צור קשר</a>
             </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="lg:hidden text-slate-900 focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
         </nav>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed top-0 left-0 w-full bg-white shadow-xl z-40 p-8 flex flex-col space-y-6 text-center font-bold lg:hidden border-b border-slate-100">
+            <button id="close-btn" class="absolute top-4 right-4 text-slate-500">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <a href="#home" class="mobile-link text-xl pt-4">בית</a>
+            <a href="#about" class="mobile-link text-xl">אודות</a>
+            <a href="#services" class="mobile-link text-xl">תחומי פעילות</a>
+            <a href="#method" class="mobile-link text-xl">השיטה</a>
+            <a href="#contact" class="bg-blue-600 text-white px-6 py-4 rounded-xl">צור קשר</a>
+        </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-gradient min-h-screen flex items-center relative text-white overflow-hidden">
-        <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10 pt-20 text-right">
+    <section id="home" class="hero-gradient min-h-screen flex items-center relative text-white pt-20 overflow-hidden">
+        <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10 text-right py-12">
             <div data-aos="fade-left">
-                <h1 class="text-5xl lg:text-7xl font-black leading-tight mb-8">פתרונות <span class="text-blue-400">כתיבה טכנית</span> <br>וניהול ידע הנדסי</h1>
-                <p class="text-2xl text-slate-300 mb-10 leading-relaxed max-w-xl">TAM Projects מתמחה בפיצוח מורכבות הנדסית והפיכתה לתוצרי ידע נגישים, חכמים ומדויקים למשתמש הקצה.</p>
-                <div class="flex flex-wrap gap-4 justify-start">
-                    <a href="#services" class="bg-blue-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-900/40 text-center">מה אנחנו עושים?</a>
-                    <a href="#contact" class="border border-white/30 px-10 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition backdrop-blur-sm text-center">דברו איתנו</a>
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black leading-tight mb-6">פתרונות <span class="text-blue-400">כתיבה טכנית</span> <br class="hidden sm:block">וניהול ידע הנדסי</h1>
+                <p class="text-lg sm:text-2xl text-slate-300 mb-8 max-w-xl">TAM Projects מתמחה בפיצוח מורכבות הנדסית והפיכתה לתוצרי ידע נגישים, חכמים ומדויקים למשתמש הקצה.</p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#services" class="bg-blue-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-700 transition shadow-xl text-center">מה אנחנו עושים?</a>
+                    <a href="#contact" class="border border-white/30 px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition text-center">דברו איתנו</a>
                 </div>
             </div>
-            <div class="relative hidden lg:block" data-aos="zoom-in">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" class="rounded-3xl shadow-2xl floating border border-white/10 relative z-10" alt="TAM Projects Hero">
+            <div class="relative flex justify-center lg:block" data-aos="zoom-in">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" class="w-full max-w-lg rounded-3xl shadow-2xl floating border border-white/10" alt="TAM Projects Hero">
             </div>
         </div>
     </section>
 
     <!-- Stats Bar -->
-    <div class="bg-white py-10 shadow-xl relative z-20 -mt-10 mx-6 rounded-2xl border border-slate-100 container mx-auto" data-aos="fade-up">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 px-6 text-center text-blue-900">
-            <div><div class="text-4xl font-black mb-1">100%</div><div class="text-xs font-bold text-slate-500 uppercase">דיוק הנדסי</div></div>
-            <div><div class="text-4xl font-black mb-1">IETM</div><div class="text-xs font-bold text-slate-500 uppercase">ספרות אינטראקטיבית</div></div>
-            <div><div class="text-4xl font-black mb-1">3D</div><div class="text-xs font-bold text-slate-500 uppercase">הדמיות ממוחשבות</div></div>
-            <div><div class="text-4xl font-black mb-1">15+</div><div class="text-xs font-bold text-slate-500 uppercase">שנות ניסיון</div></div>
+    <div class="container mx-auto px-4 -mt-10 relative z-20">
+        <div class="bg-white py-8 shadow-xl rounded-2xl border border-slate-100 grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-blue-900" data-aos="fade-up">
+            <div class="border-l border-slate-100 last:border-0 md:border-l"><div class="text-3xl font-black">100%</div><div class="text-[10px] font-bold text-slate-400 uppercase">דיוק הנדסי</div></div>
+            <div class="border-l-0 md:border-l border-slate-100"><div class="text-3xl font-black">IETM</div><div class="text-[10px] font-bold text-slate-400 uppercase">ספרות חכמה</div></div>
+            <div class="border-l border-slate-100 last:border-0 md:border-l"><div class="text-3xl font-black">3D</div><div class="text-[10px] font-bold text-slate-400 uppercase">הדמיות</div></div>
+            <div class=""><div class="text-3xl font-black">20+</div><div class="text-[10px] font-bold text-slate-400 uppercase">שנות ניסיון</div></div>
         </div>
     </div>
 
     <!-- About Section -->
-    <section id="about" class="py-24 bg-white overflow-hidden">
+    <section id="about" class="py-20 bg-white overflow-hidden">
         <div class="container mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div data-aos="fade-right" class="relative">
-                    <div class="absolute -top-10 -right-10 w-64 h-64 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800" class="rounded-[2.5rem] shadow-2xl relative z-10 border-8 border-slate-50" alt="About TAM Projects">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div data-aos="fade-right" class="order-2 lg:order-1">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800" class="rounded-3xl shadow-2xl w-full" alt="About TAM Projects">
                 </div>
-                <div data-aos="fade-left" class="text-right">
-                    <h2 class="text-5xl font-black mb-6 leading-tight">המומחיות שלנו, <br><span class='text-blue-600'>השקט שלכם.</span></h2>
-                    <p class="text-lg text-slate-600 mb-6 leading-relaxed">חברת TAM PROJECTS הוקמה במטרה לגשר על הפער שבין הפיתוח ההנדסי המורכב לבין המשתמש והמתחזק בשטח. אנחנו מביאים איתנו ניסיון רב שנים בעבודה מול תעשיות ביטחוניות, חברות הייטק וארגוני תעשייה כבדה.</p>
-                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">הצוות שלנו מורכב מאנשי מקצוע השולטים בכלים המתקדמים ביותר בשוק, תוך הקפדה על סטנדרטים בינלאומיים של איכות ותיעוד. אנחנו לא רק כותבים ספרות טכנית - אנחנו מעצבים את הדרך שבה הארגון שלכם מנהל ומפיץ ידע.</p>
-                    <div class="text-blue-600 font-black text-xl border-r-4 border-blue-600 pr-4">זמינות | דיוק | חדשנות</div>
+                <div data-aos="fade-left" class="text-right order-1 lg:order-2">
+                    <h2 class="text-4xl md:text-5xl font-black mb-6 leading-tight">המומחיות שלנו, <br class="hidden md:block"><span class='text-blue-600 font-black'>השקט שלכם.</span></h2>
+                    <p class="text-base md:text-lg text-slate-600 mb-6 leading-relaxed">חברת TAM PROJECTS הוקמה במטרה לגשר על הפער שבין הפיתוח ההנדסי המורכב לבין המשתמש והמתחזק בשטח. אנחנו מביאים איתנו ניסיון רב שנים בעבודה מול תעשיות ביטחוניות וחברות הייטק.</p>
+                    <p class="text-base md:text-lg text-slate-600 mb-8 leading-relaxed">אנחנו לא רק כותבים ספרות טכנית - אנחנו מעצבים את הדרך שבה הארגון שלכם מנהל ומפיץ ידע בצורה מדויקת ויעילה.</p>
+                    <div class="inline-block bg-blue-50 text-blue-700 font-black px-6 py-2 rounded-lg border-r-4 border-blue-600">זמינות | דיוק | חדשנות</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-24 bg-slate-50">
-        <div class="container mx-auto px-6 text-right">
-            <div class="text-center mb-20" data-aos="fade-up">
-                <h2 class="text-5xl font-black mb-4">תחומי פעילות</h2>
-                <div class="h-2 w-24 bg-blue-600 mx-auto rounded-full"></div>
+    <section id="services" class="py-20 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-black mb-4">תחומי פעילות</h2>
+                <div class="h-1.5 w-20 bg-blue-600 mx-auto rounded-full"></div>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="services-grid">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="services-grid">
                 <!-- ימולא ע"י JavaScript -->
             </div>
         </div>
     </section>
 
     <!-- Method Section -->
-    <section id="method" class="py-24 bg-white">
+    <section id="method" class="py-20 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-5xl font-black mb-4">תהליך העבודה שלנו</h2>
-                <p class="text-slate-500 max-w-2xl mx-auto italic text-lg">אנחנו מלווים אתכם מהאפיון הראשוני ועד להטמעה בשטח.</p>
+                <h2 class="text-4xl md:text-5xl font-black mb-4">תהליך העבודה</h2>
+                <p class="text-slate-500 italic">ליווי מקצועי מהאפיון ועד להטמעה בשטח.</p>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8" id="method-grid">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" id="method-grid">
                 <!-- ימולא ע"י JavaScript -->
             </div>
         </div>
     </section>
 
-    <!-- Interactive Hotspots Section -->
-    <section id="interactive" class="py-24 bg-slate-900 text-white overflow-hidden">
+    <!-- Visualizing Section -->
+    <section class="py-20 bg-slate-900 text-white overflow-hidden">
         <div class="container mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-left" class="text-right">
-                    <h2 class="text-4xl font-black mb-6 italic">Visualizing Complex Systems</h2>
-                    <p class="text-lg text-slate-400 mb-8 leading-relaxed">
-                        אנחנו לא רק כותבים - אנחנו ממחישים. הפיכת שרטוט הנדסי לאיור אינטראקטיבי מאפשרת למשתמש הקצה להבין את המערכת במהירות ובדיוק מקסימלי.
+                    <h2 class="text-3xl md:text-4xl font-black mb-6 italic">Visualizing Complex Systems</h2>
+                    <p class="text-slate-400 mb-8 text-sm md:text-base leading-relaxed">
+                        הפיכת שרטוט הנדסי לאיור אינטראקטיבי מאפשרת למשתמש הקצה להבין את המערכת במהירות ובדיוק מקסימלי, תוך צמצום טעויות תחזוקה.
                     </p>
-                    <div class="space-y-4" id="why-visual-list">
+                    <div class="space-y-3" id="why-visual-list">
                         <!-- ימולא ע"י JavaScript -->
                     </div>
                 </div>
-                <div class="relative" data-aos="fade-right">
-                    <div class="relative bg-slate-800 rounded-[2rem] aspect-video overflow-hidden border border-white/10 shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover opacity-60" alt="System Layout">
-                        <div class="hotspot" style="top: 30%; right: 40%;"><div class="tooltip">איורי 3D מורכבים המפרקים כל רכיב.</div></div>
-                        <div class="hotspot" style="bottom: 40%; left: 30%;"><div class="tooltip">קישור ישיר למערכת ניהול חלפים.</div></div>
-                        <div class="hotspot" style="top: 50%; right: 20%;"><div class="tooltip">אנימציות הסבר על זרימת חשמל.</div></div>
+                <div class="relative mt-8 lg:mt-0" data-aos="zoom-in">
+                    <div class="relative bg-slate-800 rounded-3xl aspect-video overflow-hidden border border-white/10 shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover opacity-60" alt="System Visualization">
+                        <div class="hotspot" style="top: 30%; right: 40%;"><div class="tooltip">איורי 3D מורכבים.</div></div>
+                        <div class="hotspot" style="bottom: 40%; left: 30%;"><div class="tooltip">ניהול חלפים חכם.</div></div>
+                        <div class="hotspot" style="top: 55%; right: 15%;"><div class="tooltip">אנימציות זרימה.</div></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer & Contact Section -->
-    <footer id="contact" class="bg-slate-900 text-white pt-24 pb-12">
+    <!-- Footer -->
+    <footer id="contact" class="bg-slate-900 text-white pt-20 pb-10">
         <div class="container mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-20 mb-20 text-right">
-                <div data-aos="fade-left">
-                    <h2 class="text-5xl font-black mb-8 leading-tight">בואו נניע את <br><span class="text-blue-500 underline decoration-8 underline-offset-8">הידע שלכם.</span></h2>
-                    <p class="text-xl text-slate-400 mb-10 leading-relaxed">מחפשים שותף מקצועי לכתיבה טכנית וניהול תוכן? הצוות שלנו זמין לייעוץ ראשוני ללא התחייבות.</p>
-                    <div class="space-y-6 pt-6">
-                        <div class="flex items-center gap-6 group justify-start">
-                            <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition shrink-0">📞</div>
-                            <div><p class="text-sm text-slate-400">דברו איתנו</p><p class="text-2xl font-bold">054-8007483</p></div>
+            <div class="grid lg:grid-cols-2 gap-16 mb-16 text-right">
+                <div data-aos="fade-up">
+                    <h2 class="text-4xl font-black mb-6">בואו נניע את <br><span class="text-blue-500">הידע שלכם.</span></h2>
+                    <p class="text-slate-400 mb-8 max-w-md">זמינים עבורכם לייעוץ ראשוני בניהול תוכן טכני והטמעת מערכות ידע.</p>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4 justify-start group">
+                            <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-xl shrink-0">📞</div>
+                            <span class="text-xl font-bold group-hover:text-blue-400 transition">054-8007483</span>
                         </div>
-                        <div class="flex items-center gap-6 group justify-start">
-                            <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition shrink-0">📧</div>
-                            <div><p class="text-sm text-slate-400">כתבו לנו</p><p class="text-2xl font-bold tracking-tight uppercase">TAM@TAM-PROJECTS.COM</p></div>
+                        <div class="flex items-center gap-4 justify-start group">
+                            <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-xl shrink-0">✉️</div>
+                            <span class="text-lg md:text-xl font-bold uppercase truncate group-hover:text-blue-400 transition">TAM@TAM-PROJECTS.COM</span>
                         </div>
                     </div>
                 </div>
-                
-                <div class="bg-white/5 backdrop-blur-lg p-10 rounded-[3rem] border border-white/10" data-aos="fade-right">
-                    <form class="space-y-6" onsubmit="event.preventDefault();">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <input type="text" placeholder="שם מלא" class="bg-white/10 border border-white/20 p-4 rounded-xl w-full outline-none focus:border-blue-500 text-white">
-                            <input type="text" placeholder="חברה" class="bg-white/10 border border-white/20 p-4 rounded-xl w-full outline-none focus:border-blue-500 text-white">
+                <div class="bg-white/5 p-8 rounded-3xl border border-white/10" data-aos="fade-up">
+                    <form class="space-y-4" onsubmit="event.preventDefault();">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <input type="text" placeholder="שם מלא" class="bg-white/10 border border-white/20 p-4 rounded-xl w-full text-white placeholder-slate-500">
+                            <input type="text" placeholder="חברה" class="bg-white/10 border border-white/20 p-4 rounded-xl w-full text-white placeholder-slate-500">
                         </div>
-                        <input type="email" placeholder="דוא''ל" class="bg-white/10 border border-white/20 p-4 rounded-xl w-full outline-none focus:border-blue-500 text-white">
-                        <textarea rows="4" placeholder="איך נוכל לעזור?" class="bg-white/10 border border-white/20 p-4 rounded-xl w-full outline-none focus:border-blue-500 text-white"></textarea>
-                        <button class="bg-blue-600 w-full py-5 rounded-xl font-bold text-xl hover:bg-blue-700 transition shadow-xl">שלח פנייה</button>
+                        <input type="email" placeholder="אימייל" class="bg-white/10 border border-white/20 p-4 rounded-xl w-full text-white placeholder-slate-500">
+                        <textarea rows="3" placeholder="איך נוכל לעזור?" class="bg-white/10 border border-white/20 p-4 rounded-xl w-full text-white placeholder-slate-500"></textarea>
+                        <button class="bg-blue-600 w-full py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition">שלח פנייה</button>
                     </form>
                 </div>
             </div>
-            
-            <div class="border-t border-white/10 pt-12 text-center text-slate-500 text-sm flex flex-col items-center gap-4">
-                <img src="images/TAM logo white.png" alt="TAM Logo" class="h-8 opacity-90 grayscale" onerror="this.style.display='none'">
-                <p>© 2024 TAM PROJECTS LTD. פתרונות כתיבה טכנית וניהול ידע. כל הזכויות שמורות.</p>
+            <div class="border-t border-white/10 pt-10 text-center text-slate-500 text-xs md:text-sm">
+                <img src="images/TAM logo.png" alt="TAM Logo" class="h-10 mx-auto mb-6 opacity-90 grayscale hover:opacity-100 transition duration-500" onerror="this.style.display='none'">
+                <p>© 2024 TAM PROJECTS LTD. פתרונות כתיבה טכנית. כל הזכויות שמורות.</p>
             </div>
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // תפריט מובייל
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() { mobileMenu.classList.toggle('active'); }
+        menuBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // תוכן שירותים
         const services = [
-            { icon: "📖", title: "כתיבה טכנית", desc: "פיתוח <span class='highlight-blue'>ספרות מקצועית</span>, תיעוד טכני והוראות הרכבה מדויקות." },
-            { icon: "🎓", title: "הדרכה", desc: "הכנת <span class='highlight-blue'>ערכות הדרכה</span> מקצועיות הכוללות תרגולים ומצגות." },
-            { icon: "🎨", title: "גרפיקה", desc: "איורים ותרשימים טכניים, ברושורים ועזרי המחשה ליצירת <span class='highlight-blue'>תקשורת ויזואלית</span>." },
-            { icon: "👥", title: "ייעוץ וניהול", desc: "<span class='highlight-blue'>ייעוץ וניהול פרויקטים</span> מקצועי בתהליכי פיתוח וספרות." },
-            { icon: "🏢", title: "הטמעה", desc: "הטמעת מערכות וכלים <span class='highlight-blue'>טכנולוגיים</span> באתר הלקוח משלב האפיון." },
-            { icon: "💻", title: "מיקור חוץ", desc: "שירותי מיקור חוץ <span class='highlight-blue'>גמישים</span> במגוון עולמות תוכן לפי צרכי הארגון." }
+            { icon: "📖", title: "כתיבה טכנית", desc: "פיתוח <span class='highlight-blue'>ספרות מקצועית</span> ותיעוד טכני מדויק." },
+            { icon: "🎓", title: "הדרכה", desc: "הכנת <span class='highlight-blue'>ערכות הדרכה</span> מקצועיות ומותאמות." },
+            { icon: "🎨", title: "גרפיקה", desc: "איורים ותרשימים טכניים ליצירת <span class='highlight-blue'>תקשורת ויזואלית</span>." },
+            { icon: "👥", title: "ייעוץ וניהול", desc: "<span class='highlight-blue'>ניהול פרויקטים</span> מקצועי בתהליכי פיתוח." },
+            { icon: "🏢", title: "הטמעה", desc: "הטמעת כלים <span class='highlight-blue'>טכנולוגיים</span> באתר הלקוח." },
+            { icon: "💻", title: "מיקור חוץ", desc: "שירותי כתיבה <span class='highlight-blue'>גמישים</span> לפי צרכי הארגון." }
         ];
 
+        // תוכן תהליך
         const methodSteps = [
-            { title: "אפיון וניתוח", desc: "הבנת המערכת, קהל היעד והדרישות הרגולטוריות." },
-            { title: "איסוף מידע", desc: "עבודה צמודה מול מהנדסים ומומחי תוכן (SME)." },
-            { title: "פיתוח תוכן", desc: "כתיבה, איור ועיבוד גרפי ברמה הגבוהה ביותר." },
-            { title: "ביקורת והטמעה", desc: "סבבי הגהה, אישור לקוח והטמעה במערכות היעד." }
+            { title: "אפיון וניתוח", desc: "הבנת המערכת, קהל היעד והדרישות." },
+            { title: "איסוף מידע", desc: "עבודה צמודה מול מהנדסים ומומחי תוכן." },
+            { title: "פיתוח תוכן", desc: "כתיבה ואיור ברמה הגבוהה ביותר." },
+            { title: "ביקורת", desc: "סבבי הגהה ואישור לקוח סופי." }
         ];
 
+        // תוכן למה ויזואלי
         const whyVisual = [
             "צמצום טעויות אנוש בתחזוקה.",
-            "קיצור זמני הכשרה של כוח אדם חדש.",
-            "חיסכון משמעותי בעלויות הדפסה ועדכון.",
-            "מראה טכנולוגי ומתקדם לחברה שלכם."
+            "קיצור זמני הכשרה משמעותי.",
+            "חיסכון בעלויות עדכון והדפסה.",
+            "מראה טכנולוגי ומתקדם לחברה."
         ];
 
         function init() {
-            // Services Grid
+            // הזרקת שירותים
             const sGrid = document.getElementById('services-grid');
             services.forEach((s, i) => {
                 sGrid.innerHTML += `
-                    <div class="service-card p-10 bg-white rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl text-center" data-aos="fade-up" data-aos-delay="${i*100}">
-                        <div class="text-5xl mb-6">${s.icon}</div>
-                        <h3 class="text-2xl font-bold mb-4 text-blue-800">${s.title}</h3>
-                        <p class="text-slate-600 leading-relaxed text-sm">${s.desc}</p>
+                    <div class="service-card p-6 md:p-8 bg-white rounded-3xl border border-slate-100 shadow-sm text-center" data-aos="fade-up" data-aos-delay="${i*50}">
+                        <div class="text-4xl mb-4">${s.icon}</div>
+                        <h3 class="text-xl font-bold mb-3 text-blue-800">${s.title}</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">${s.desc}</p>
                     </div>
                 `;
             });
 
-            // Method Grid
+            // הזרקת תהליך
             const mGrid = document.getElementById('method-grid');
             methodSteps.forEach((step, i) => {
                 mGrid.innerHTML += `
-                    <div class="step-card bg-slate-50 p-8 rounded-2xl border border-slate-100 text-right" data-aos="fade-up" data-aos-delay="${i*150}">
+                    <div class="step-card bg-slate-50 p-6 rounded-2xl border border-slate-100 text-right" data-aos="fade-up" data-aos-delay="${i*100}">
                         <div class="step-number">0${i+1}</div>
-                        <h4 class="text-xl font-bold mb-3 text-blue-900 relative z-10">${step.title}</h4>
-                        <p class="text-slate-600 text-sm relative z-10">${step.desc}</p>
+                        <h4 class="text-lg font-bold mb-2 text-blue-900 relative z-10">${step.title}</h4>
+                        <p class="text-slate-600 text-xs relative z-10">${step.desc}</p>
                     </div>
                 `;
             });
 
-            // Why Visual
+            // הזרקת למה ויזואלי
             const vList = document.getElementById('why-visual-list');
             whyVisual.forEach(item => {
                 vList.innerHTML += `
-                    <div class="flex items-center gap-4 bg-slate-800/50 p-4 rounded-xl border border-white/5">
-                        <span class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-xs">✓</span>
-                        <span class="text-slate-300 font-medium">${item}</span>
+                    <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
+                        <span class="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center text-[10px]">✓</span>
+                        <span class="text-slate-300 text-sm font-medium">${item}</span>
                     </div>
                 `;
             });
 
-            AOS.init({ duration: 1000, once: true });
+            AOS.init({ duration: 800, once: true });
         }
 
         window.onload = init;
-
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
-                }
-            });
-        });
     </script>
 </body>
 </html>
